@@ -1,65 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dectifier | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarun S Rao | Portfolio</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-1ycn6Ica999/8tT94WrHftjYvQb0gZlKpU5lHppZ9YdS4x+h0/pk3jfbQ3VIAtF5NCzlyw5vZl+Yx4YkZ5o8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="grid-bg"></div>
+  <div class="grid-bg"></div>
 
-    <header>
-        <h1 class="glitch" data-text="DECTIFIER">DECTIFIER</h1>
-        <p class="role">Web Designer • UI/UX • Product Design</p>
-    </header>
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">Tarun S Rao</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#clients">Clients</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
 
-    <section class="about">
-        <h2>About</h2>
-        <p>
-        I design digital experiences using Shopify, WordPress, Wix, Figma and Adobe XD.
-        My focus is creating smooth, clean, cyber-styled interfaces that feel effortless.
+  <!-- HERO -->
+  <section id="hero" class="section hero">
+    <div class="hero-inner reveal">
+      <div class="hero-avatar-wrapper">
+        <!-- put your image at /assets/profile.jpg -->
+        <img src="assets/profile.jpg" alt="Tarun S Rao portrait" class="hero-avatar" />
+        <div class="hero-avatar-glow"></div>
+      </div>
+
+      <div class="hero-text">
+        <p class="hero-tag">Web Design · Product Design · UI/UX</p>
+        <h1 class="hero-title">Hi, I’m <span>Tarun S Rao</span></h1>
+        <p class="hero-subtitle">
+          Student with <strong>industry-level skills</strong> in web design and product design.
+          I craft clean, interactive experiences for web and mobile that feel effortless for users
+          and powerful for clients.
         </p>
-    </section>
 
-    <section class="projects">
-        <h2>Projects</h2>
-        <div class="project-grid">
-            <div class="card">
-                <h3>Project One</h3>
-                <p>Shopify Design</p>
-            </div>
-            <div class="card">
-                <h3>Project Two</h3>
-                <p>UI/UX Prototype</p>
-            </div>
-            <div class="card">
-                <h3>Project Three</h3>
-                <p>Wordpress Web Design</p>
-            </div>
+        <div class="hero-metrics">
+          <div class="metric">
+            <span class="metric-value">2+ yrs</span>
+            <span class="metric-label">Web Design</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">1+ yrs</span>
+            <span class="metric-label">Product Design</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">20+</span>
+            <span class="metric-label">Happy Clients</span>
+          </div>
         </div>
-    </section>
 
-    <section class="skills">
-        <h2>Skills</h2>
-        <div class="skill-list">
-            <span>Shopify</span>
-            <span>WordPress</span>
-            <span>Wix</span>
-            <span>Figma</span>
-            <span>Adobe XD</span>
+        <div class="hero-actions">
+          <a href="#projects" class="btn primary">View Projects</a>
+          <a href="#contact" class="btn ghost">Let’s Work Together</a>
         </div>
-    </section>
 
-    <section class="contact">
+        <div class="hero-socials">
+          <a href="https://instagram.com/tarun_s_rao" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/tarun-s-rao-97662333a" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <!-- Add more later if you want -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="section-inner reveal">
+      <div class="section-header">
+        <h2>About Me</h2>
+        <p>Student · Designer · Problem Solver</p>
+      </div>
+
+      <div class="about-grid">
+        <p class="about-text">
+          I’m Tarun, a student with <strong>2–3+ years of hands-on experience</strong> designing and
+          building digital products. I work across
+          <strong>web design, UI/UX, e-commerce, and product development</strong>.
+        </p>
+        <p class="about-text">
+          I’ve participated in multiple <strong>UI/UX hackathons</strong>, freelanced for
+          <strong>20+ clients</strong>, and shipped websites using
+          <strong>Shopify, WordPress, Wix</strong>, and custom front-end code.
+          My goal: make every interface feel fast, clear, and quietly powerful.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section">
+    <div class="section-inner reveal">
+      <div class="section-header">
+        <h2>Experience</h2>
+        <p>What I’ve been doing</p>
+      </div>
+
+      <div class="experience-grid">
+        <article class="card">
+          <h3>Web Designer & Front-end</h3>
+          <p class="card-meta">Freelance · 2+ years</p>
+          <p>
+            Designing and building marketing websites and full e-commerce experiences
+            using <strong>Shopify, WordPress, Wix</strong> and custom HTML/CSS/JS.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Product & UI/UX Designer</h3>
+          <p class="card-meta">1+ year</p>
+          <p>
+            Creating product flows, web app and mobile app interfaces, and design systems in
+            <strong>Figma</strong> and <strong>Adobe XD</strong>, focused on clarity and usability.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Hackathons & Design Challenges</h3>
+          <p class="card-meta">Multiple events</p>
+          <p>
+            Participated in several <strong>UI/UX and product design hackathons</strong>,
+            rapidly prototyping user-centric interfaces and pitching concepts.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>3D & Interactive</h3>
+          <p class="card-meta">Blender · Unreal Engine · 1+ year</p>
+          <p>
+            Exploring 3D visuals, motion and interactive experiences to bring extra depth
+            and storytelling to digital products.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="section-inner reveal">
+      <div class="section-header">
+        <h2>Skills & Tools</h2>
+        <p>What I use to build experiences</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skills-column">
+          <h3>Design · UI/UX</h3>
+          <div class="pill-row">
+            <span class="pill">Figma</span>
+            <span class="pill">Adobe XD</span>
+            <span class="pill">Design Systems</span>
+            <span class="pill">Wireframing</span>
+            <span class="pill">User Flows</span>
+            <span class="pill">Prototyping</span>
+          </div>
+        </div>
+
+        <div class="skills-column">
+          <h3>Web & E-commerce</h3>
+          <div class="pill-row">
+            <span class="pill">Shopify</span>
+            <span class="pill">WordPress</span>
+            <span class="pill">Wix</span>
+            <span class="pill">Custom Front-end</span>
+            <span class="pill">Responsive Design</span>
+            <span class="pill">Performance Focused</span>
+          </div>
+        </div>
+
+        <div class="skills-column">
+          <h3>Code</h3>
+          <div class="pill-row">
+            <span class="pill">HTML</span>
+            <span class="pill">CSS</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">Python</span>
+            <span class="pill">SQL</span>
+          </div>
+        </div>
+
+        <div class="skills-column">
+          <h3>3D & Interactive</h3>
+          <div class="pill-row">
+            <span class="pill">Blender</span>
+            <span class="pill">Unreal Engine</span>
+            <span class="pill">Motion & Visuals</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="section-inner reveal">
+      <div class="section-header">
+        <h2>Selected Projects</h2>
+        <p>A mix of web, e-commerce and product design</p>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card">
+          <p class="project-tag">E-commerce · Shopify / WordPress / Wix</p>
+          <h3>Custom Online Stores</h3>
+          <p>
+            Designed and built multiple <strong>Shopify, WordPress and Wix</strong> stores
+            with optimized product pages, checkout flows and mobile-first layouts.
+          </p>
+          <ul>
+            <li>Custom themes & sections</li>
+            <li>Conversion-focused layouts</li>
+            <li>Brand-aligned visuals</li>
+          </ul>
+        </article>
+
+        <article class="project-card">
+          <p class="project-tag">Product Design · Figma / Adobe XD</p>
+          <h3>Web & Mobile App Interfaces</h3>
+          <p>
+            Created <strong>UI/UX for web apps and mobile apps</strong>, including dashboards,
+            onboarding flows, and component libraries.
+          </p>
+          <ul>
+            <li>Design systems & tokens</li>
+            <li>Interactive prototypes</li>
+            <li>Developer-friendly handoff</li>
+          </ul>
+        </article>
+
+        <article class="project-card">
+          <p class="project-tag">Custom Front-end</p>
+          <h3>Tailored Websites</h3>
+          <p>
+            Built custom landing pages and marketing sites using
+            <strong>HTML, CSS, JavaScript</strong> for special requirements and animations.
+          </p>
+          <ul>
+            <li>High-performance static sites</li>
+            <li>Smooth micro-interactions</li>
+            <li>Fully responsive layouts</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <section id="clients" class="section">
+    <div class="section-inner reveal">
+      <div class="section-header">
+        <h2>Clients & Impact</h2>
+        <p>Freelance work that delivers</p>
+      </div>
+
+      <div class="clients-grid">
+        <div class="clients-stats">
+          <div class="stat-card">
+            <span class="stat-value">20+</span>
+            <span class="stat-label">Happy Clients</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">2+ yrs</span>
+            <span class="stat-label">Freelance Web Design</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">1+ yrs</span>
+            <span class="stat-label">Product Design</span>
+          </div>
+        </div>
+
+        <div class="clients-note">
+          <p>
+            I’ve worked with startups, local businesses and individual founders,
+            helping them launch <strong>websites, e-commerce stores and product MVPs</strong>.
+            I care about good communication, clear goals and delivering designs
+            that actually solve problems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="section-inner reveal">
+      <div class="section-header">
         <h2>Contact</h2>
-        <a class="neon-btn" href="mailto:your@email.com">Email Me</a>
-    </section>
+        <p>Let’s build something</p>
+      </div>
 
-    <footer>
-        <p>© 2025 • Dectifier</p>
-    </footer>
+      <div class="contact-grid">
+        <div class="contact-text">
+          <p>
+            Looking for a <strong>web designer, UI/UX designer or product designer</strong> for your next idea?
+            I’m open to freelance, collaborations and internships.
+          </p>
+          <p>
+            Reach out and tell me about your project — what you’re building,
+            who it’s for, and what you want to achieve.
+          </p>
 
+          <div class="contact-links">
+            <!-- change email to your real one -->
+            <a href="mailto:youremail@example.com" class="contact-link">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Email me</span>
+            </a>
+            <a href="https://instagram.com/tarun_s_rao" target="_blank" rel="noopener" class="contact-link">
+              <i class="fab fa-instagram"></i>
+              <span>@tarun_s_rao</span>
+            </a>
+            <a href="https://www.linkedin.com/in/tarun-s-rao-97662333a" target="_blank" rel="noopener" class="contact-link">
+              <i class="fab fa-linkedin"></i>
+              <span>LinkedIn Profile</span>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-form" action="https://formsubmit.co/youremail@example.com" method="POST">
+          <!-- replace email above too -->
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_subject" value="New project inquiry from portfolio">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div class="field">
+            <label for="message">Project details</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn primary full">Send Message</button>
+          <p class="form-note">Form powered by FormSubmit · no backend needed.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Tarun S Rao · Designed & built by me.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
