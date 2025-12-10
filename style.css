@@ -746,3 +746,10 @@ body {
   transform: translateY(-2px);
 }
 
+.social-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-right: 8px;
+  vertical-align: middle;
+}
