@@ -534,11 +534,6 @@ body {
 
 /* ---------- CONTACT ---------- */
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: 22px;
-}
 
 .contact-text p {
   font-size: 0.96rem;
@@ -552,8 +547,9 @@ body {
   gap: 12px;
   margin-top: 18px;
   margin-bottom: 18px;
-  justify-content: flex-end;   /* push icons to the right */
+  justify-content: flex-start;   /* icons start from left under text */
 }
+
 
 .contact-link {
   display: inline-flex;
@@ -757,4 +753,27 @@ body {
   transform: translateY(-2px) scale(1.05);
   filter: drop-shadow(0 0 6px rgba(0, 255, 245, 0.5));
   opacity: 1;
+}
+/* --- Contact section width override --- */
+#contact .section-inner {
+  max-width: 1280px;      /* wider than the default 1120px */
+}
+/* --- Contact grid layout tweaks --- */
+@media (min-width: 880px) {
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+    column-gap: 32px;             /* space between text and form */
+    align-items: flex-start;
+  }
+
+  .contact-text {
+    width: 100%;
+    max-width: 100%;              /* allow the paragraph to stretch more */
+  }
+
+  .contact-form {
+    width: 100%;
+    max-width: 100%;              /* form fills its column */
+  }
 }
