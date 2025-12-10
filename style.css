@@ -282,24 +282,49 @@ body {
 }
 
 .metric {
-  min-width: 130px;
-  padding: 10px 14px;
+  min-width: 140px;
+  padding: 12px 16px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--accent-soft);
-  background: radial-gradient(circle at top left, var(--accent-soft), transparent);
+  border: 1px solid rgba(0, 255, 245, 0.6);
+  background:
+    radial-gradient(circle at top left, rgba(0, 255, 245, 0.25), transparent 60%),
+    linear-gradient(135deg, rgba(5, 10, 15, 0.95), rgba(3, 6, 10, 0.98));
+  box-shadow: 0 0 18px rgba(0, 255, 245, 0.45);
+  position: relative;
+  overflow: hidden;
 }
+
+.metric::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+    transparent,
+    rgba(255, 255, 255, 0.16),
+    transparent);
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.metric:hover::after {
+  opacity: 1;
+  transform: translateX(120%);
+  transition: transform 0.7s ease-out, opacity 0.2s ease-out;
+}
+
 
 .metric-value {
   display: block;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  color: var(--accent);
 }
 
 .metric-label {
   font-size: 0.8rem;
   color: var(--muted);
 }
-
 /* hero buttons */
 
 .hero-actions {
@@ -659,6 +684,15 @@ body {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+@keyframes metricPulse {
+  0%   { box-shadow: 0 0 12px rgba(0, 255, 245, 0.4); }
+  50%  { box-shadow: 0 0 22px rgba(0, 255, 245, 0.8); }
+  100% { box-shadow: 0 0 12px rgba(0, 255, 245, 0.4); }
+}
+
+.metric {
+  animation: metricPulse 3.2s ease-in-out infinite;
 }
 
 /* ---------- RESPONSIVE ---------- */
