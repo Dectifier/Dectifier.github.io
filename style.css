@@ -725,4 +725,24 @@ body {
     justify-content: flex-start;
   }
 }
+.contact-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(7, 9, 16, 0.98);
+  color: var(--accent);
+  font-size: 14px;
+  transition: 0.2s ease-out;
+  flex-shrink: 0;
+}
+
+.contact-link:hover .contact-icon {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(0, 255, 245, 0.5);
+  transform: translateY(-2px);
+}
 
