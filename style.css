@@ -208,9 +208,17 @@ body {
 
 .hero-avatar-wrapper {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 210px;
+  height: 210px;
 }
+
+@media (max-width: 600px) {
+  .hero-avatar-wrapper {
+    width: 180px;
+    height: 180px;
+  }
+}
+
 
 .hero-avatar {
   width: 100%;
