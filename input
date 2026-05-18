@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaFin | Visual Strategy Deck 2026</title>
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #0a192f;
+            --bg-card: #112240;
+            --primary: #64ffda; /* Electric Cyan */
+            --primary-dim: rgba(100, 255, 218, 0.1);
+            --text-main: #ccd6f6;
+            --text-muted: #8892b0;
+            --accent-blue: #0077b6;
+            --accent-purple: #9d4edd;
+            --accent-red: #e63946;
+            --accent-orange: #f4a261;
+            --accent-green: #2a9d8f;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --max-width: 1200px;
+            --nav-width: 260px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT --- */
+        .app-container { display: flex; min-height: 100vh; }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: var(--nav-width);
+            background: #020c1b;
+            position: fixed;
+            height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            z-index: 100;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
+        .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+        .nav-links a {
+            text-decoration: none; color: var(--text-muted); font-size: 0.8rem;
+            padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.2s; display: block;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); background: var(--primary-dim); }
+        .deck-footer { margin-top: auto; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; }
+
+        /* --- MAIN CONTENT --- */
+        .main-content { margin-left: var(--nav-width); flex: 1; width: calc(100% - var(--nav-width)); }
+
+        /* --- SLIDES --- */
+        section.slide {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .slide-container { max-width: var(--max-width); margin: 0 auto; width: 100%; }
+
+        /* --- TYPOGRAPHY --- */
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1rem; color: #fff; }
+        h2 { font-size: 2rem; margin-bottom: 2rem; color: #fff; display: flex; align-items: center; gap: 1rem; }
+        h2::before { content: ''; display: block; width: 4px; height: 2rem; background: var(--primary); }
+        h3 { font-size: 1.1rem; color: #fff; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        p { margin-bottom: 1rem; color: var(--text-muted); }
+        strong { color: #fff; }
+
+        /* --- GRID SYSTEMS --- */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+        /* --- CARDS --- */
+        .card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); border-color: var(--primary-dim); }
+
+        /* --- ICONS --- */
+        .icon-box {
+            width: 40px; height: 40px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1rem; font-size: 1.2rem;
+        }
+        .icon-cyan { background: rgba(100,255,218,0.1); color: var(--primary); }
+        .icon-blue { background: rgba(0,119,182,0.1); color: var(--accent-blue); }
+        .icon-purple { background: rgba(157,78,221,0.1); color: var(--accent-purple); }
+        .icon-red { background: rgba(230,57,70,0.1); color: var(--accent-red); }
+
+        /* --- VISUALIZATION: 2x2 MATRIX --- */
+        .matrix-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 10px;
+            position: relative;
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .matrix-quad {
+            height: 150px;
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+        }
+        .quad-tl { background: rgba(255,255,255,0.03); } /* Low Exp, Low Util */
+        .quad-tr { background: rgba(100,255,218,0.05); border: 1px dashed var(--primary); } /* High Exp, Low Util - Niche */
+        .quad-bl { background: rgba(0,119,182,0.05); border: 1px dashed var(--accent-blue); } /* Low Exp, High Util - Enterprise */
+        .quad-br { 
+            background: linear-gradient(135deg, rgba(100,255,218,0.2) 0%, rgba(10,25,47,0) 100%); 
+            border: 2px solid var(--primary);
+            display: flex; align-items: center; justify-content: center;
+        } /* High Exp, High Util - NovaFin */
+        
+        .matrix-label {
+            position: absolute; font-size: 0.75rem; color: var(--text-muted); font-weight: bold;
+            text-transform: uppercase;
+        }
+        .label-top { top: -25px; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; }
+        .label-left { left: -80px; top: 50%; transform: translateY(-50%) rotate(-90deg); width: 100%; text-align: center; }
+        .label-center { top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--primary); font-weight: bold; font-size: 1.2rem; text-align: center; border: 2px solid var(--primary); padding: 0.5rem 1rem; background: var(--bg-dark); }
+
+        /* --- VISUALIZATION: FLOW DIAGRAM --- */
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            position: relative;
+        }
+        .flow-step {
+            text-align: center; z-index: 2;
+            background: var(--bg-dark);
+            padding: 0 10px;
+        }
+        .flow-circle {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--text-muted);
+            margin: 0 auto 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: bold;
+        }
+        .flow-line {
+            position: absolute; top: 30px; left: 0; right: 0; height: 2px;
+            background: var(--text-muted); z-index: 1; opacity: 0.3;
+        }
+
+        /* --- VISUALIZATION: BAR CHARTS --- */
+        .chart-row {
+            display: flex; align-items: center; margin-bottom: 1.5rem;
+        }
+        .chart-label { width: 120px; font-size: 0.9rem; color: var(--text-muted); }
+        .chart-bar-bg { flex: 1; height: 12px; background: rgba(255,255,255,0.05); border-radius: 6px; overflow: hidden; }
+        .chart-bar-fill { height: 100%; border-radius: 6px; width: 0; transition: width 1.5s ease-out; }
+        .chart-value { width: 80px; text-align: right; font-weight: bold; font-size: 0.9rem; }
+
+        /* --- VISUALIZATION: GAUGE / RADIAL --- */
+        .gauge-container { display: flex; flex-direction: column; align-items: center; }
+        .gauge {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent-red) 0deg 60deg, var(--accent-orange) 60deg 120deg, var(--primary) 120deg 180deg, rgba(255,255,255,0.05) 180deg 360deg);
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .gauge::after {
+            content: ''; position: absolute; width: 90px; height: 90px;
+            background: var(--bg-card); border-radius: 50%;
+        }
+        .gauge-value { position: absolute; z-index: 2; font-size: 1.5rem; font-weight: bold; color: #fff; }
+
+        /* --- VISUALIZATION: TIMELINE / CYCLE --- */
+        .cycle-container { position: relative; width: 300px; height: 300px; margin: 0 auto; }
+        .cycle-step {
+            position: absolute; width: 80px; height: 80px;
+            background: var(--bg-card); border: 2px solid var(--primary);
+            border-radius: 50%; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            font-size: 0.75rem; color: #fff;
+        }
+        .cs-1 { top: 0; left: 50%; transform: translateX(-50%); }
+        .cs-2 { top: 50%; right: 0; transform: translateY(-50%); }
+        .cs-3 { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .cs-4 { top: 50%; left: 0; transform: translateY(-50%); }
+
+        /* --- UTILS --- */
+        .check-list { list-style: none; }
+        .check-list li { margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; }
+        .check-list li::before { content: '✔'; position: absolute; left: 0; color: var(--primary); }
+        
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .app-container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .nav-links { flex-direction: row; overflow-x: auto; padding-bottom: 5px; }
+            .main-content { margin-left: 0; width: 100%; }
+            section.slide { padding: 3rem 1.5rem; min-height: auto; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; }
+            .flow-diagram { flex-direction: column; gap: 1rem; }
+            .flow-line { width: 2px; height: 100%; left: 50%; top: 0; }
+            .label-left { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            NovaFin
+        </div>
+        <ul class="nav-links">
+            <li><a href="#slide-1">01. Title</a></li>
+            <li><a href="#slide-2">02. Executive Summary</a></li>
+            <li><a href="#slide-3">03. Market Opportunity</a></li>
+            <li><a href="#slide-4">04. Competitive Matrix</a></li>
+            <li><a href="#slide-5">05. Business Model</a></li>
+            <li><a href="#slide-6">06. Products</a></li>
+            <li><a href="#slide-7">07. Operating Model</a></li>
+            <li><a href="#slide-8">08. Tech Strategy</a></li>
+            <li><a href="#slide-9">09. Macro Risks</a></li>
+            <li><a href="#slide-10">10. KPI Dashboard</a></li>
+            <li><a href="#slide-11">11. Financials</a></li>
+            <li><a href="#slide-12">12. Stress Test</a></li>
+            <li><a href="#slide-13">13. Risk Framework</a></li>
+            <li><a href="#slide-14">14. Compliance</a></li>
+            <li><a href="#slide-15">15. Recommendation</a></li>
+        </ul>
+        <div class="deck-footer">
+            Executive Strategy Presentation<br>India Fintech Market | 2026
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="main-content">
+
+        <!-- Slide 1: Title -->
+        <section id="slide-1" class="slide">
+            <div class="slide-container fade-in">
+                <p style="color: var(--primary); letter-spacing: 2px; font-weight: 600;">EXECUTIVE DECK 2026</p>
+                <h1>NovaFin<br><span style="color: var(--text-muted); font-size: 2.5rem;">Digital-First Financial Institution</span></h1>
+                
+                <!-- Visual: Abstract Feature Cards -->
+                <div class="grid-3" style="margin-top: 3rem;">
+                    <div class="card" style="border-top: 4px solid var(--primary);">
+                        <div class="icon-box icon-cyan">📈</div>
+                        <h3>Scalable</h3>
+                        <p>AI-native infrastructure designed for 100M+ users.</p>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--accent-blue);">
+                        <div class="icon-box icon-blue">🛡️</div>
+                        <h3>Secure</h3>
+                        <p>Enterprise-grade fraud governance embedded in code.</p>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--accent-green);">
+                        <div class="icon-box icon-purple">💰</div>
+                        <h3>Profitable</h3>
+                        <p>Path to ₹145 Cr revenue within 36 months.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Executive Summary -->
+        <section id="slide-2" class="slide">
+            <div class="slide-container fade-in">
+                <h2>NovaFin at a Glance</h2>
+                <div class="grid-2">
+                    <!-- Visual: Snapshot List -->
+                    <div>
+                        <h3>Company Snapshot</h3>
+                        <div class="card" style="height: 100%;">
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: center;">
+                                <div class="icon-box icon-cyan">🏦</div>
+                                <div><strong>Digital-First Banking</strong><br><span class="text-muted">Partner-bank model</span></div>
+                            </div>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: center;">
+                                <div class="icon-box icon-blue">🤖</div>
+                                <div><strong>AI Infrastructure</strong><br><span class="text-muted">Real-time underwriting</span></div>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div class="icon-box icon-purple">🎯</div>
+                                <div><strong>Target Audience</strong><br><span class="text-muted">SME + Gen-Z Consumers</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Visual: Strategic Objectives with Progress -->
+                    <div>
+                        <h3>Strategic Objectives</h3>
+                        <div class="card" style="height: 100%;">
+                            <ul class="check-list">
+                                <li><strong>Achieve profitability in 3 years</strong></li>
+                                <li><strong>Build scalable infrastructure</strong></li>
+                                <li><strong>Fraud-resilient ecosystem</strong></li>
+                                <li><strong>Full regulatory compliance</strong></li>
+                            </ul>
+                            <div style="margin-top: 2rem; text-align: center;">
+                                <span style="color: var(--text-muted); display: block; margin-bottom: 5px;">3-Year Target</span>
+                                <strong style="font-size: 2rem; color: var(--primary);">₹145 Cr Revenue</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Market Opportunity -->
+        <section id="slide-3" class="slide">
+            <div class="slide-container fade-in">
+                <h2>India’s Fintech Transformation</h2>
+                
+                <!-- Visual: Big Stat Grid -->
+                <div class="grid-4">
+                    <div class="card" style="text-align: center; background: linear-gradient(180deg, var(--bg-card) 0%, rgba(100,255,218,0.05) 100%);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📱</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #fff;">800M+</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Smartphone Users</div>
+                    </div>
+                    <div class="card" style="text-align: center; background: linear-gradient(180deg, var(--bg-card) 0%, rgba(0,119,182,0.05) 100%);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">💸</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #fff;">₹20L Cr</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">SME Credit Gap</div>
+                    </div>
+                    <div class="card" style="text-align: center; background: linear-gradient(180deg, var(--bg-card) 0%, rgba(157,78,221,0.05) 100%);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚡</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #fff;">>50%</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">UPI Penetration</div>
+                    </div>
+                    <div class="card" style="text-align: center; background: linear-gradient(180deg, var(--bg-card) 0%, rgba(230,57,70,0.05) 100%);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #fff;">#1</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Real-time Payments</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem;">
+                    <h3>Opportunity Matrix</h3>
+                    <div class="grid-3" style="margin-top: 1rem;">
+                        <div style="text-align: center;">
+                            <strong style="color: var(--primary);">Neo-banking</strong><br><span class="text-muted">Digital Consumers</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <strong style="color: var(--accent-blue);">AI Lending</strong><br><span class="text-muted">SME Credit</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <strong style="color: var(--accent-purple);">Embedded APIs</strong><br><span class="text-muted">Developer Ecosystem</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Competitive Positioning -->
+        <section id="slide-4" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Competitive Positioning Matrix</h2>
+                
+                <!-- Visual: 2x2 Matrix Chart -->
+                <div class="matrix-container">
+                    <div class="matrix-label label-top">Digital Experience (UX) &rarr;</div>
+                    <div class="matrix-label label-left">Business Utility &rarr;</div>
+
+                    <!-- Q1: Traditional Banks -->
+                    <div class="matrix-quad quad-tl">
+                        <small style="color:var(--text-muted)">Traditional Banks</small>
+                        <div style="font-size:0.8rem; margin-top:5px;">High Trust, Low Speed</div>
+                    </div>
+
+                    <!-- Q2: Neo-Fintechs -->
+                    <div class="matrix-quad quad-tr">
+                        <small style="color:var(--text-muted)">Niyo / Fi</small>
+                        <div style="font-size:0.8rem; margin-top:5px;">Great UX, Niche Use</div>
+                    </div>
+
+                    <!-- Q3: ERP/Enterprise -->
+                    <div class="matrix-quad quad-bl">
+                        <small style="color:var(--text-muted)">Tally / Zoho</small>
+                        <div style="font-size:0.8rem; margin-top:5px;">High Utility, Low UX</div>
+                    </div>
+
+                    <!-- Q4: NovaFin (Winner) -->
+                    <div class="matrix-quad quad-br">
+                        <div class="label-center">NovaFin</div>
+                        <div style="position:absolute; bottom: 10px; font-size: 0.8rem; color: #fff;">The Sweet Spot</div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 2rem;">
+                    <div class="card">
+                        <h4 style="color: var(--primary);">NovaFin Advantage</h4>
+                        <ul class="check-list" style="font-size: 0.9rem;">
+                            <li>Unified Ecosystem (SME + Consumer)</li>
+                            <li>AI-native underwriting</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent-red);">Market Gaps</h4>
+                        <p style="font-size: 0.9rem;">Competitors lack full-stack integration or deep SME credit capabilities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Business Model -->
+        <section id="slide-5" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Diversified Revenue Engine</h2>
+                
+                <div class="grid-2">
+                    <div>
+                        <h3>Revenue Flow</h3>
+                        <!-- Visual: Flow Diagram -->
+                        <div class="flow-diagram">
+                            <div class="flow-line"></div>
+                            <div class="flow-step">
+                                <div class="flow-circle" style="border-color: var(--primary);">👤</div>
+                                <small>User</small>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-circle" style="border-color: var(--accent-blue);">📲</div>
+                                <small>NovaFin App</small>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-circle" style="border-color: var(--accent-purple);">🏛️</div>
+                                <small>Partner Bank</small>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-circle" style="border-color: #fff;">💰</div>
+                                <small>Revenue</small>
+                            </div>
+                        </div>
+
+                        <div class="card" style="margin-top: 2rem; border-left: 4px solid var(--primary);">
+                            <strong>Insight:</strong> High-margin embedded finance drives long-term scalability.
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3>Revenue Composition</h3>
+                        <!-- Visual: CSS Conic Donut -->
+                        <div style="position: relative; width: 200px; height: 200px; margin: 0 auto 2rem; border-radius: 50%; background: conic-gradient(var(--primary) 0% 45%, var(--accent-blue) 45% 75%, var(--accent-purple) 75% 90%, #233554 90% 100%);">
+                            <div style="position: absolute; inset: 20px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold;">Total</div>
+                        </div>
+                        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                            <span style="display: flex; align-items: center; gap: 5px; font-size: 0.8rem;"><span style="width: 10px; height: 10px; background: var(--primary);"></span> Lending (45%)</span>
+                            <span style="display: flex; align-items: center; gap: 5px; font-size: 0.8rem;"><span style="width: 10px; height: 10px; background: var(--accent-blue);"></span> Fees (30%)</span>
+                            <span style="display: flex; align-items: center; gap: 5px; font-size: 0.8rem;"><span style="width: 10px; height: 10px; background: var(--accent-purple);"></span> SaaS (15%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Products -->
+        <section id="slide-6" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Integrated Product Ecosystem</h2>
+                <div class="grid-3">
+                    <div class="card" style="text-align: center;">
+                        <div class="icon-box icon-cyan" style="margin: 0 auto 1rem; width: 60px; height: 60px; font-size: 1.5rem;">👤</div>
+                        <h3>Consumer</h3>
+                        <p>Savings, Budgeting, UPI</p>
+                        <hr style="border: 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin: 1rem 0;">
+                        <div style="font-size: 0.8rem; color: var(--primary);">High Volume, Low Ticket</div>
+                    </div>
+                    <div class="card" style="text-align: center; border-color: var(--primary);">
+                        <div class="icon-box icon-blue" style="margin: 0 auto 1rem; width: 60px; height: 60px; font-size: 1.5rem;">🏢</div>
+                        <h3>SME</h3>
+                        <p>Working Capital, QR Tools</p>
+                        <hr style="border: 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin: 1rem 0;">
+                        <div style="font-size: 0.8rem; color: var(--primary);">High Margin, High Value</div>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div class="icon-box icon-purple" style="margin: 0 auto 1rem; width: 60px; height: 60px; font-size: 1.5rem;">🔌</div>
+                        <h3>APIs</h3>
+                        <p>BaaS, Remittance Stack</p>
+                        <hr style="border: 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin: 1rem 0;">
+                        <div style="font-size: 0.8rem; color: var(--primary);">Scalable Platform</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Operating Model -->
+        <section id="slide-7" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Digital Operating Model</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Customer Journey</h3>
+                        <!-- Visual: Vertical Steps -->
+                        <div style="border-left: 2px solid rgba(255,255,255,0.1); padding-left: 2rem; margin-left: 1rem;">
+                            <div style="position: relative; margin-bottom: 2rem;">
+                                <div style="position: absolute; left: -2.6rem; top: 0; width: 1.5rem; height: 1.5rem; background: var(--bg-card); border: 2px solid var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 0.8rem;">1</div>
+                                <strong>eKYC Onboarding</strong><br><span class="text-muted">DigiLocker integration</span>
+                            </div>
+                            <div style="position: relative; margin-bottom: 2rem;">
+                                <div style="position: absolute; left: -2.6rem; top: 0; width: 1.5rem; height: 1.5rem; background: var(--bg-card); border: 2px solid var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 0.8rem;">2</div>
+                                <strong>AI Risk Assessment</strong><br><span class="text-muted">ML Score in 200ms</span>
+                            </div>
+                            <div style="position: relative;">
+                                <div style="position: absolute; left: -2.6rem; top: 0; width: 1.5rem; height: 1.5rem; background: var(--bg-card); border: 2px solid var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 0.8rem;">3</div>
+                                <strong>Instant Activation</strong><br><span class="text-muted">Account ready immediately</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Infrastructure Stack</h3>
+                        <div class="card">
+                            <div class="chart-row">
+                                <div class="chart-label">Cloud Native</div>
+                                <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 100%; background: var(--primary);"></div></div>
+                            </div>
+                            <div class="chart-row">
+                                <div class="chart-label">API First</div>
+                                <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 90%; background: var(--accent-blue);"></div></div>
+                            </div>
+                            <div class="chart-row">
+                                <div class="chart-label">Automation</div>
+                                <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 85%; background: var(--accent-purple);"></div></div>
+                            </div>
+                            <div style="margin-top: 1rem; text-align: right; font-size: 0.8rem; color: var(--text-muted);">Reduces marginal cost at scale</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Tech Strategy -->
+        <section id="slide-8" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Tech as a Competitive Moat</h2>
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="icon-box icon-cyan">🧠</div>
+                        <h3>AI / ML</h3>
+                        <p>Credit Scoring & Fraud Detection</p>
+                        <div style="margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px;">
+                                <span>Value</span>
+                                <span>Risk</span>
+                            </div>
+                            <div style="height: 6px; background: linear-gradient(90deg, var(--primary) 80%, var(--accent-red) 20%); border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="icon-box icon-blue">🕸️</div>
+                        <h3>Graph Analytics</h3>
+                        <p>Fraud Network Mapping</p>
+                        <div style="margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px;">
+                                <span>Value</span>
+                                <span>Risk</span>
+                            </div>
+                            <div style="height: 6px; background: linear-gradient(90deg, var(--primary) 70%, var(--accent-red) 30%); border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="icon-box icon-purple">⛓️</div>
+                        <h3>Blockchain</h3>
+                        <p>Cross-Border Settlement</p>
+                        <div style="margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px;">
+                                <span>Value</span>
+                                <span>Risk</span>
+                            </div>
+                            <div style="height: 6px; background: linear-gradient(90deg, var(--primary) 60%, var(--accent-red) 40%); border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Macro Environment -->
+        <section id="slide-9" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Managing External Volatility</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Risk Drivers</h3>
+                        <div class="grid-2">
+                            <div class="card" style="text-align: center; border: 1px solid var(--accent-red);">
+                                <div style="font-size: 1.5rem; color: var(--accent-red);">📉</div>
+                                <strong>GDP Slowdown</strong>
+                            </div>
+                            <div class="card" style="text-align: center; border: 1px solid var(--accent-orange);">
+                                <div style="font-size: 1.5rem; color: var(--accent-orange);">📈</div>
+                                <strong>Rising Rates</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Response Strategy</h3>
+                        <div class="card" style="background: rgba(100,255,218,0.05);">
+                            <ul class="check-list">
+                                <li><strong>Dynamic Pricing:</strong> Adjust rates based on macro data.</li>
+                                <li><strong>AI Scoring:</strong> Tighten models in real-time.</li>
+                                <li><strong>Stress Testing:</strong> Simulate 200bps hike scenarios.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: KPI Dashboard -->
+        <section id="slide-10" class="slide">
+            <div class="slide-container fade-in">
+                <h2>KPI Operating Dashboard</h2>
+                
+                <div class="grid-3">
+                    <!-- Gauge 1 -->
+                    <div class="card gauge-container">
+                        <div class="gauge" style="background: conic-gradient(var(--primary) 0deg 250deg, rgba(255,255,255,0.05) 250deg 360deg);">
+                            <div class="gauge-value">70%</div>
+                        </div>
+                        <strong>Cost-to-Income</strong>
+                        <p style="font-size: 0.8rem;">Target: &lt;50% by Y3</p>
+                    </div>
+                    <!-- Gauge 2 -->
+                    <div class="card gauge-container">
+                        <div class="gauge" style="background: conic-gradient(var(--accent-green) 0deg 320deg, rgba(255,255,255,0.05) 320deg 360deg);">
+                            <div class="gauge-value">0.8%</div>
+                        </div>
+                        <strong>Fraud Loss</strong>
+                        <p style="font-size: 0.8rem;">Industry Avg: 1.5%</p>
+                    </div>
+                    <!-- Gauge 3 -->
+                    <div class="card gauge-container">
+                        <div class="gauge" style="background: conic-gradient(var(--accent-blue) 0deg 200deg, rgba(255,255,255,0.05) 200deg 360deg);">
+                            <div class="gauge-value">₹450</div>
+                        </div>
+                        <strong>Revenue / User</strong>
+                        <p style="font-size: 0.8rem;">Growing 15% QoQ</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary);"></div>
+                        <strong>System Operational Status</strong>
+                    </div>
+                    <span style="color: var(--primary); font-weight: bold; font-size: 1.2rem;">OPTIMAL</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Financial Forecast -->
+        <section id="slide-11" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Path to Profitability</h2>
+                <div class="card">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 2rem;">Revenue vs Expenses (₹ Crores)</h3>
+                    
+                    <!-- Visual: Bar Chart using Flexbox -->
+                    <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 250px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        
+                        <!-- Year 1 -->
+                        <div style="display: flex; gap: 10px; align-items: flex-end; height: 100%;">
+                            <div class="chart-bar-fill" style="width: 40px; height: 18%; background: var(--primary); opacity: 0.8;" title="Rev"></div>
+                            <div class="chart-bar-fill" style="width: 40px; height: 42%; background: var(--accent-red); opacity: 0.6;" title="Exp"></div>
+                        </div>
+                        <span style="position: absolute; bottom: 0; left: 15%;">Year 1</span>
+
+                        <!-- Year 2 -->
+                        <div style="display: flex; gap: 10px; align-items: flex-end; height: 100%;">
+                            <div class="chart-bar-fill" style="width: 40px; height: 62%; background: var(--primary); opacity: 0.8;"></div>
+                            <div class="chart-bar-fill" style="width: 40px; height: 71%; background: var(--accent-red); opacity: 0.6;"></div>
+                        </div>
+                        <span style="position: absolute; bottom: 0; left: 48%;">Year 2</span>
+
+                        <!-- Year 3 -->
+                        <div style="display: flex; gap: 10px; align-items: flex-end; height: 100%;">
+                            <div class="chart-bar-fill" style="width: 40px; height: 90%; background: var(--primary); opacity: 1;"></div>
+                            <div class="chart-bar-fill" style="width: 40px; height: 60%; background: var(--accent-red); opacity: 0.6;"></div>
+                        </div>
+                        <span style="position: absolute; bottom: 0; right: 15%;">Year 3</span>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; font-size: 0.8rem;">
+                        <span style="display: flex; align-items: center; gap: 5px;"><div style="width: 10px; height: 10px; background: var(--primary);"></div> Revenue</span>
+                        <span style="display: flex; align-items: center; gap: 5px;"><div style="width: 10px; height: 10px; background: var(--accent-red);"></div> Expense</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Stress Testing -->
+        <section id="slide-12" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Resilience Under Adverse Conditions</h2>
+                <div class="grid-3">
+                    <div class="card" style="border-top: 4px solid var(--primary);">
+                        <h3>Base Case</h3>
+                        <div style="font-size: 2rem; font-weight: bold; color: #fff; margin: 1rem 0;">Y3 Profit</div>
+                        <div style="font-size: 0.9rem; color: var(--text-muted);">Strong lending growth & merchant adoption.</div>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3>Stress Case</h3>
+                        <div style="font-size: 2rem; font-weight: bold; color: #fff; margin: 1rem 0;">Delay 6 Mo</div>
+                        <div style="font-size: 0.9rem; color: var(--text-muted);">Higher defaults, slower SME onboarding.</div>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--accent-red);">
+                        <h3>Fraud Spike</h3>
+                        <div style="font-size: 2rem; font-weight: bold; color: #fff; margin: 1rem 0;">-15% Margin</div>
+                        <div style="font-size: 0.9rem; color: var(--text-muted);">Simulated cyber-attack impact.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 13: Risk Governance -->
+        <section id="slide-13" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Enterprise Risk Framework</h2>
+                <!-- Visual: Concentric Circles (Target) -->
+                <div style="display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;">
+                    <div style="position: relative; width: 300px; height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <!-- Layers -->
+                        <div style="position: absolute; width: 280px; height: 280px; border: 1px dashed var(--text-muted); border-radius: 50%; opacity: 0.3;"></div>
+                        <div style="position: absolute; width: 200px; height: 200px; border: 1px solid var(--accent-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(0,119,182,0.1);">Monitoring</div>
+                        <div style="position: absolute; width: 120px; height: 120px; border: 1px solid var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--bg-card); z-index: 2;">Core<br>Risk</div>
+                        
+                        <!-- Labels -->
+                        <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 0.8rem;">Regulatory</div>
+                        <div style="position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 0.8rem;">Liquidity</div>
+                        <div style="position: absolute; left: -30px; top: 50%; transform: translateY(-50%); font-size: 0.8rem;">Credit</div>
+                        <div style="position: absolute; right: -30px; top: 50%; transform: translateY(-50%); font-size: 0.8rem;">Fraud</div>
+                    </div>
+                    
+                    <div style="flex: 1;">
+                        <h3>Mitigation Pillars</h3>
+                        <div class="card">
+                            <ul class="check-list">
+                                <li><strong>Real-time Anomaly Detection</strong></li>
+                                <li><strong>Automated Compliance Workflows</strong></li>
+                                <li><strong>Stress Testing & Buffers</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 14: Compliance -->
+        <section id="slide-14" class="slide">
+            <div class="slide-container fade-in">
+                <h2>Compliance & Fraud Prevention</h2>
+                
+                <div class="grid-2">
+                    <div>
+                        <h3>Coverage</h3>
+                        <div class="grid-2">
+                            <div class="card" style="text-align: center;">
+                                <div style="color: var(--primary); font-size: 2rem;">🆔</div>
+                                <strong>KYC / AML</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <div style="color: var(--accent-blue); font-size: 2rem;">🇮🇳</div>
+                                <strong>Data Local</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3>Fraud Lifecycle</h3>
+                        <!-- Visual: Circular Cycle -->
+                        <div class="cycle-container">
+                            <div class="cycle-step cs-1">
+                                <span style="font-size: 1.2rem; color: var(--primary);">🛡️</span>
+                                Prevent
+                            </div>
+                            <div class="cycle-step cs-2">
+                                <span style="font-size: 1.2rem; color: var(--accent-orange);">👁️</span>
+                                Detect
+                            </div>
+                            <div class="cycle-step cs-3">
+                                <span style="font-size: 1.2rem; color: var(--accent-red);">🔍</span>
+                                Investigate
+                            </div>
+                            <div class="cycle-step cs-4">
+                                <span style="font-size: 1.2rem; color: var(--accent-blue);">📝</span>
+                                Report
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 15: Closing -->
+        <section id="slide-15" class="slide">
+            <div class="slide-container fade-in" style="text-align: center;">
+                <div style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem;">✔</div>
+                <h2>Investment Recommendation</h2>
+                <h1 style="font-size: 3rem; color: #fff; margin-bottom: 2rem;">Approve Phased Launch</h1>
+                
+                <div class="grid-3" style="text-align: left; max-width: 800px; margin: 0 auto;">
+                    <div class="card">
+                        <strong>Large Market</strong>
+                        <p style="font-size: 0.8rem;">Underserved SME gap.</p>
+                    </div>
+                    <div class="card">
+                        <strong>Scalable Tech</strong>
+                        <p style="font-size: 0.8rem;">AI-native infrastructure.</p>
+                    </div>
+                    <div class="card">
+                        <strong>Compliance Ready</strong>
+                        <p style="font-size: 0.8rem;">Built for RBI regulations.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <button style="padding: 1rem 2rem; background: var(--primary); color: var(--bg-dark); border: none; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 1rem; box-shadow: 0 0 20px rgba(100,255,218,0.4);">
+                        Download Full PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    // Interaction for Animations
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger Bar Chart Animations
+                    const bars = entry.target.querySelectorAll('.chart-bar-fill');
+                    bars.forEach(bar => {
+                        // Force reflow to restart animation if needed, or just let CSS handle it
+                        // Since we set width in inline styles, the CSS transition handles the rest.
+                    });
+
+                    // Update Nav
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(section => observer.observe(section));
+    });
+</script>
+
+</body>
+</html>
